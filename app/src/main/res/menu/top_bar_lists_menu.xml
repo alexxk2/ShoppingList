@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/delete_all_items"
+        android:contentDescription="@string/create_new_list"
+        android:title="@string/create_new_list" />
+
+    <item
+        android:id="@+id/to_map"
+        android:contentDescription="@string/delete_all_lists"
+        android:title="@string/delete_all_lists" />
+
+</menu>
