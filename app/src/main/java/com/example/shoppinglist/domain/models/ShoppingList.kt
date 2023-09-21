@@ -1,4 +1,4 @@
-package com.example.shoppinglist.domain
+package com.example.shoppinglist.domain.models
 
 data class ShoppingList(
     val id: Int = 0,

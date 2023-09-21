@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.ListItemBinding
-import com.example.shoppinglist.domain.ShoppingList
+import com.example.shoppinglist.domain.models.ShoppingList
 
 class ListsAdapter(
     private val context: Context,
