@@ -1,13 +1,11 @@
-package com.example.shoppinglist.presentation.details
+package com.example.shoppinglist.presentation.details.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentDetailsBinding
-import com.example.shoppinglist.databinding.FragmentListsBinding
 
 
 class DetailsFragment : Fragment() {

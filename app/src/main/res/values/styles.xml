@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TopBarTitle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/soft_black</item>
+
+    </style>
+
+    <style name="CustomFab" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="colorOnContainer">@color/white</item>
+        <item name="android:colorPrimary">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="iconTint">@color/white</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="PlayerBottomSheet">
+        <item name="android:background">@drawable/bottom_sheet_background</item>
+        <item name="android:orientation">vertical</item>
+        <item name="behavior_hideable">true</item>
+        <item name="behavior_peekHeight">300dp</item>
+        <item name="layout_behavior">com.google.android.material.bottomsheet.BottomSheetBehavior
+        </item>
+
+    </style>
+</resources>

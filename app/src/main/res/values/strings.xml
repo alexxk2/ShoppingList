@@ -2,4 +2,41 @@
     <string name="app_name">Shopping List</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--lists screen-->
+    <string name="delete_all_lists">Удалить все списки</string>
+    <string name="create_new_list">Создать новый список</string>
+    <string name="lists_title">Cписки покупок</string>
+    <string name="list_image">list image</string>
+    <string name="list_name_tools">Покупки на ДР</string>
+    <string name="list_created_date_tools">28.08.2023</string>
+    <string name="list_created_date">%1$s</string>
+    <string name="button_more">button more</string>
+    <string name="fab_add_new_list">button add a new list</string>
+    <string name="add_new_list">Новый список</string>
+    <string name="error">Ошибка</string>
+    <string name="intro">Вводный экран</string>
+    <string name="intro_text">Списков покупок ещё нет. Нажмите \"НОВЫЙ СПИСОК\" чтобы создать список покупок.</string>
+    <string name="something_went_wrong">Что-то пошло не так</string>
+    <string name="list_name">Название списка*</string>
+    <string name="new_list">Новый список</string>
+    <string name="create_dialog_message">Создать новый список с этим названием?</string>
+    <string name="negative_button">ОТМЕНА</string>
+    <string name="positive_button">СОЗДАТЬ</string>
+    <string name="success_creation">Список "%1$s" успешно создан!</string>
+    <string name="not_success_creation">Не получилось создать список</string>
+    <string name="name_must_be_not_blank">Поле \"НАЗВАНИЕ СПИСКА\" не должно быть пустым</string>
+    <string name="ok">OK</string>
+    <string name="drag_handler">drag handler</string>
+    <string name="items_in_list">%1$s</string>
+    <string name="items_in_list_tools">9 товаров</string>
+    <string name="delete_list">Удалить список</string>
+    <string name="delete">УДАЛИТЬ</string>
+    <string name="delete_dialog_title">Удаление списка</string>
+    <string name="delete_dialog_message">Вы действительно хотите удалить этот список?</string>
+    <string name="restore_message">Восстановить удаленный список?</string>
+    <string name="restore">ВОССТАНОВИТЬ</string>
+    <string name="yes">ДА</string>
+    <string name="edit_error_message">Поле не должно быть пустым</string>
+
 </resources>
