@@ -2,44 +2,53 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="180dp"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:padding="4dp">
+    android:layout_margin="6dp"
+    android:background="@drawable/list_item_background"
+    android:padding="18dp">
 
     <ImageView
         android:id="@+id/list_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintDimensionRatio="h, 1:1"
         android:contentDescription="@string/list_image"
         android:src="@drawable/ic_basket"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/list_text_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/list_image"
-        app:layout_constraintStart_toEndOf="@id/list_image"
-        app:layout_constraintTop_toTopOf="@id/list_image">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/list_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textAlignment="textStart"
             android:textColor="@color/soft_black"
+            android:textSize="18sp"
             android:textStyle="bold"
             tools:text="@string/list_name_tools" />
 
         <TextView
             android:id="@+id/list_created_date"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/soft_black"
+            android:layout_marginTop="18dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/grey"
             android:textSize="11sp"
             tools:text="@string/list_created_date_tools" />
 
@@ -47,10 +56,10 @@
 
 
     <ImageButton
+        android:visibility="gone"
         android:id="@+id/list_menu_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/button_more"
         android:src="@drawable/ic_more"

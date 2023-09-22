@@ -5,5 +5,5 @@ import com.example.shoppinglist.domain.repositories.ShopRepository
 
 class GetShoppingListUseCase(private val shopRepository: ShopRepository) {
 
-    suspend fun execute(id: Int): List<Product> = shopRepository.getShoppingList(id)
+    suspend fun execute(id: Int): Pair<Boolean, List<Product>> = shopRepository.getShoppingList(id)
 }

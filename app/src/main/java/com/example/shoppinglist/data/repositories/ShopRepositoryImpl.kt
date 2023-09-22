@@ -19,22 +19,24 @@ class ShopRepositoryImpl(
     override suspend fun restoreShoppingList(id: Int): Boolean =
         networkClient.restoreShoppingList(id)
 
-    override suspend fun getAllShoppingLists(): List<ShoppingList> {
+    override suspend fun getAllShoppingLists(): Pair<Boolean, List<ShoppingList>> {
 
         val networkResponse = networkClient.getAllShoppingLists()
-        return networkResponse.map { shoppingListDto ->
+        val mappedList = networkResponse.second.map { shoppingListDto ->
             networkConverter.convertShoppingListToDomain(shoppingListDto)
         }
 
+        return Pair(networkResponse.first, mappedList)
     }
 
-    override suspend fun getShoppingList(id: Int): List<Product> {
+    override suspend fun getShoppingList(id: Int): Pair<Boolean, List<Product>> {
 
         val networkResponse = networkClient.getShoppingList(id)
-        return networkResponse.map { productDto ->
+        val mappedList = networkResponse.second.map { productDto ->
             networkConverter.convertProductToDomain(productDto)
         }
 
+        return Pair(networkResponse.first, mappedList)
     }
 
     override suspend fun addItemToShoppingList(
@@ -45,4 +47,7 @@ class ShopRepositoryImpl(
 
     override suspend fun deleteItemFromShoppingList(listId: Int, itemId: Int): Boolean =
         networkClient.deleteItemFromShoppingList(listId, itemId)
+
+
+
 }

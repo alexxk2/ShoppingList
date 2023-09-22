@@ -11,9 +11,9 @@ interface NetworkClient {
 
     suspend fun restoreShoppingList(id: Int): Boolean
 
-    suspend fun getAllShoppingLists(): List<ShoppingListDto>
+    suspend fun getAllShoppingLists(): Pair<Boolean, List<ShoppingListDto>>
 
-    suspend fun getShoppingList(id: Int): List<ProductDto>
+    suspend fun getShoppingList(id: Int): Pair<Boolean, List<ProductDto>>
 
 
     suspend fun addItemToShoppingList(listId: Int, itemName: String, quantity: Int): Boolean

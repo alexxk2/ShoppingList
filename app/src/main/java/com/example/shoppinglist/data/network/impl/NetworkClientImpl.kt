@@ -40,20 +40,22 @@ class NetworkClientImpl : NetworkClient {
 
     }
 
-    override suspend fun getAllShoppingLists(): List<ShoppingListDto> {
+    override suspend fun getAllShoppingLists(): Pair<Boolean, List<ShoppingListDto>> {
 
         val response = retrofitService.getAllShoppingLists(API_KEY)
 
-        return if (response.code() == 200) response.body()?.shoppingLists ?: emptyList()
-        else emptyList()
+        return if (response.code() == 200 && response.body()?.success == true) {
+            Pair(true, response.body()?.shoppingLists ?: emptyList())
+        } else Pair(false, emptyList())
     }
 
-    override suspend fun getShoppingList(id: Int): List<ProductDto> {
+    override suspend fun getShoppingList(id: Int): Pair<Boolean, List<ProductDto>> {
 
         val response = retrofitService.getShoppingList(id)
 
-        return if (response.code() == 200) response.body()?.productsList ?: emptyList()
-        else emptyList()
+        return if (response.code() == 200 && response.body()?.success == true) {
+            Pair(true, response.body()?.productsList ?: emptyList())
+        } else Pair(false, emptyList())
 
     }
 

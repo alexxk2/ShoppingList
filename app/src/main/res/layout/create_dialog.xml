@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingHorizontal="20dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="36dp"
+        android:id="@+id/input_list_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/list_name"
+        app:boxStrokeColor="@color/black"
+        app:counterMaxLength="22"
+        app:endIconCheckable="true"
+        app:endIconDrawable="@drawable/ic_close"
+        app:endIconMode="clear_text"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@drawable/ic_error"
+        android:textColorHint="@color/soft_grey"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_list_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

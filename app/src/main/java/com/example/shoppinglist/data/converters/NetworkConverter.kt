@@ -13,7 +13,7 @@ class NetworkConverter {
             return ShoppingList(
                 id = id,
                 name = name,
-                created = created
+                created = formatCreatingData(created)
             )
         }
     }
@@ -28,4 +28,6 @@ class NetworkConverter {
             )
         }
     }
+
+    private fun formatCreatingData(created: String): String = created.dropLast(3).replace('-', '.')
 }

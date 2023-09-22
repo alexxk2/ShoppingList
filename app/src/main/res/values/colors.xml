@@ -4,8 +4,10 @@
     <color name="soft_black">#454545</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#888888</color>
+    <color name="soft_grey">#C5C5C5</color>
     <color name="blue">#AEDBFF</color>
     <color name="rich_blue">#5DB7FF</color>
     <color name="rich_green">#b7f397</color>
     <color name="soft_green">#edf1e4</color>
+    <color name="red">#D13A2F</color>
 </resources>

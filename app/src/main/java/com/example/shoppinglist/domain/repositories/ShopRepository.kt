@@ -11,11 +11,9 @@ interface ShopRepository {
 
     suspend fun restoreShoppingList(id: Int): Boolean
 
-    suspend fun getAllShoppingLists(): List<ShoppingList>
+    suspend fun getAllShoppingLists(): Pair<Boolean, List<ShoppingList>>
 
-    suspend fun getShoppingList(id: Int): List<Product>
-
-
+    suspend fun getShoppingList(id: Int): Pair<Boolean, List<Product>>
 
 
     suspend fun addItemToShoppingList(listId: Int, itemName: String, quantity: Int): Boolean
