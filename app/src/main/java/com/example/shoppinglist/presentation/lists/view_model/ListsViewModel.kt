@@ -13,6 +13,7 @@ import com.example.shoppinglist.domain.models.ShoppingList
 import com.example.shoppinglist.presentation.lists.models.CreatedState
 import com.example.shoppinglist.presentation.lists.models.ScreenState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -23,7 +24,6 @@ class ListsViewModel(
     private val restoreShoppingListUseCase: RestoreShoppingListUseCase,
     private val getShoppingListUseCase: GetShoppingListUseCase
 ) : ViewModel() {
-
 
     private val _screenState = MutableLiveData<ScreenState>()
     val screenState: LiveData<ScreenState> = _screenState
@@ -39,6 +39,11 @@ class ListsViewModel(
 
     private var listInFocus = 0
 
+    private var poolingJob: Job? = null
+    private var isPooling: Boolean = false
+
+
+
     fun getAllLists() {
         _screenState.postValue(ScreenState.Loading)
 
@@ -50,7 +55,6 @@ class ListsViewModel(
                 _shoppingLists.postValue(resultFromData.second!!)
                 _screenState.postValue(if (resultFromData.second.isEmpty()) ScreenState.Intro else ScreenState.Content)
             } else _screenState.postValue(ScreenState.Error)
-
         }
     }
 
@@ -65,7 +69,6 @@ class ListsViewModel(
                 getAllLists()
             } else {
                 _createdState.postValue(CreatedState.NotCreated)
-
             }
 
             delay(RETURN_CREATED_DEFAULT_DELAY)
@@ -75,29 +78,29 @@ class ListsViewModel(
         }
     }
 
-    fun getLShoppingListItemsQuantity(id: Int){
+    fun getShoppingListItemsQuantity(id: Int) {
         listInFocus = id
         viewModelScope.launch(Dispatchers.IO) {
-            _numberOfProducts.postValue(getRightEndingTracks(getShoppingListUseCase.execute(id).second.size))
+            _numberOfProducts.postValue(getRightEndingGoods(getShoppingListUseCase.execute(id).second.size))
         }
     }
 
 
-    fun deleteShoppingList(){
+    fun deleteShoppingList() {
         viewModelScope.launch(Dispatchers.IO) {
             deleteShoppingListUseCase.execute(listInFocus)
             getAllLists()
         }
     }
 
-    fun restoreShoppingList(){
+    fun restoreShoppingList() {
         viewModelScope.launch(Dispatchers.IO) {
             restoreShoppingListUseCase.execute(listInFocus)
             getAllLists()
         }
     }
 
-    private fun getRightEndingTracks(numberOfTracks: Int): String {
+    private fun getRightEndingGoods(numberOfTracks: Int): String {
         val preLastDigit = numberOfTracks % 100 / 10
 
         if (preLastDigit == 1) {
@@ -113,9 +116,66 @@ class ListsViewModel(
         }
     }
 
+    fun startPooling() {
+        poolingJob?.cancel()
+
+        if (isPooling) {
+            poolingJob = viewModelScope.launch(Dispatchers.IO) {
+                delay(POOLING_FREQUENCY)
+                poolForUpdates()
+                startPooling()
+            }
+        } else return
+
+    }
+
+    fun allowPooling() {
+        isPooling = true
+    }
+
+    fun stopPooling() {
+        poolingJob?.cancel()
+        isPooling = false
+
+    }
+
+    private fun poolForUpdates(){
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val resultFromData = getAllShoppingListsUseCase.execute()
+
+            if (resultFromData.first) {
+                if (!areListsEqual(resultFromData.second)){
+                    _shoppingLists.postValue(resultFromData.second!!)
+                    _screenState.postValue(if (resultFromData.second.isEmpty()) ScreenState.Intro else ScreenState.Content)
+                }
+
+            } else _screenState.postValue(ScreenState.Error)
+
+        }
+    }
+
+    private fun areListsEqual(newList:  List<ShoppingList>): Boolean{
+
+        if (newList.size != shoppingLists.value?.size) return false
+        else{
+            val newListIds = newList.map{
+                it.id
+            }
+            val oldListIds = shoppingLists.value?.map {
+                it.id
+            }
+            newListIds.forEach {
+                if (oldListIds?.contains(it) == false) return false
+            }
+        }
+        return true
+    }
 
     companion object {
         const val RETURN_CREATED_DEFAULT_DELAY = 300L
+        const val POOLING_FREQUENCY = 1000L
     }
 
 }
