@@ -37,10 +37,10 @@
   
 
 ## Gif flow приложения
-<br>**Экран Списки покупок**
-<img src="https://github.com/alexxk2/ShoppingList/blob/dev/app/src/main/res/drawable/lists_screen.gif" width="340" height="699" />  <br>
-<br>**Экран Содержимое списка**
-<img src="https://github.com/alexxk2/ShoppingList/blob/dev/app/src/main/res/drawable/product_screen.gif" width="340" height="699" />  <br>
-<br>**Синхронное работа со списками**
-<img src="https://github.com/alexxk2/ShoppingList/blob/dev/app/src/main/res/drawable/remote_creating.gif" />  <br>
+<br>**Экран Списки покупок**<br>
+<br> <img src="https://github.com/alexxk2/ShoppingList/blob/dev/app/src/main/res/drawable/lists_screen.gif" width="340" height="699" />  <br>
+<br>**Экран Содержимое списка**<br>
+<br> <img src="https://github.com/alexxk2/ShoppingList/blob/dev/app/src/main/res/drawable/product_screen.gif" width="340" height="699" />  <br>
+<br>**Синхронное работа со списками**<br>
+<br> <img src="https://github.com/alexxk2/ShoppingList/blob/dev/app/src/main/res/drawable/remote_creating.gif" width="340" height="699" />  <br>
 
