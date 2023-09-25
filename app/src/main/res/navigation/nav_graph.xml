@@ -9,10 +9,26 @@
         android:id="@+id/listsFragment"
         android:name="com.example.shoppinglist.presentation.lists.ui.ListsFragment"
         android:label="fragment_lists"
-        tools:layout="@layout/fragment_lists" />
+        tools:layout="@layout/fragment_lists" >
+        <action
+            android:id="@+id/action_listsFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.shoppinglist.presentation.details.ui.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="listId"
+            app:argType="integer" />
+        <argument
+            android:name="listName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_detailsFragment_to_listsFragment"
+            app:destination="@id/listsFragment"
+            app:popUpTo="@id/listsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

@@ -23,7 +23,7 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="PlayerBottomSheet">
+    <style name="ListsBottomSheet">
         <item name="android:background">@drawable/bottom_sheet_background</item>
         <item name="android:orientation">vertical</item>
         <item name="behavior_hideable">true</item>
@@ -32,4 +32,15 @@
         </item>
 
     </style>
+
+    <style name="ProductsBottomSheet">
+        <item name="android:background">@drawable/bottom_sheet_background_products</item>
+        <item name="android:orientation">vertical</item>
+        <item name="behavior_hideable">true</item>
+        <item name="behavior_peekHeight">80dp</item>
+        <item name="layout_behavior">com.google.android.material.bottomsheet.BottomSheetBehavior
+        </item>
+
+    </style>
+
 </resources>

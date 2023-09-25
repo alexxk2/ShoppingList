@@ -3,12 +3,15 @@ package com.example.shoppinglist.presentation.lists.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.FragmentListsBinding
 import com.example.shoppinglist.domain.models.ShoppingList
@@ -20,7 +23,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.w3c.dom.Text
 
 
 class ListsFragment : Fragment() {
@@ -49,32 +51,37 @@ class ListsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setRecyclerView()
-        viewModel.getAllLists()
 
-        viewModel.createdState.observe(viewLifecycleOwner) { state ->
-            reactOnListCreation(state)
+        with(viewModel) {
+            getAllLists()
+
+            createdState.observe(viewLifecycleOwner) { state ->
+                reactOnListCreation(state)
+            }
+
+            screenState.observe(viewLifecycleOwner) { state ->
+                manageScreenContent(state)
+            }
+
+            shoppingLists.observe(viewLifecycleOwner) { newList ->
+                listsAdapter.submitList(newList)
+            }
+
+            numberOfProducts.observe(viewLifecycleOwner) { numberOfProducts ->
+                binding.listItemsNumber.text = numberOfProducts
+            }
         }
 
-        viewModel.screenState.observe(viewLifecycleOwner) { state ->
-            manageScreenContent(state)
+
+        with(binding) {
+            creteNewListButton.setOnClickListener { showCreationDialog() }
+            deleteButton.setOnClickListener { showListDeletingDialog() }
         }
 
-        viewModel.shoppingLists.observe(viewLifecycleOwner) { newList ->
-            listsAdapter.submitList(newList)
-        }
-
-        viewModel.numberOfProducts.observe(viewLifecycleOwner) { numberOfProducts ->
-            binding.listItemsNumber.text = numberOfProducts
-
-        }
 
         bottomSheetBehaviorLists = BottomSheetBehavior.from(binding.bottomSheetLayoutLists).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
         }
-
-        binding.creteNewListButton.setOnClickListener { showCreationDialog() }
-
-        binding.deleteButton.setOnClickListener { showListDeletingDialog() }
 
         manageBottomSheetShadowAndFab()
     }
@@ -87,6 +94,7 @@ class ListsFragment : Fragment() {
                     errorLayout.visibility = View.GONE
                     progressBar.visibility = View.GONE
                     introLayout.visibility = View.GONE
+                    creteNewListButton.visibility = View.VISIBLE
                 }
 
                 ScreenState.Error -> {
@@ -94,6 +102,7 @@ class ListsFragment : Fragment() {
                     errorLayout.visibility = View.VISIBLE
                     progressBar.visibility = View.GONE
                     introLayout.visibility = View.GONE
+                    creteNewListButton.visibility = View.GONE
                 }
 
                 ScreenState.Loading -> {
@@ -101,6 +110,7 @@ class ListsFragment : Fragment() {
                     errorLayout.visibility = View.GONE
                     progressBar.visibility = View.VISIBLE
                     introLayout.visibility = View.GONE
+                    creteNewListButton.visibility = View.GONE
                 }
 
                 ScreenState.Intro -> {
@@ -108,6 +118,7 @@ class ListsFragment : Fragment() {
                     errorLayout.visibility = View.GONE
                     progressBar.visibility = View.GONE
                     introLayout.visibility = View.VISIBLE
+                    creteNewListButton.visibility = View.VISIBLE
                 }
             }
         }
@@ -168,20 +179,24 @@ class ListsFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
+
         listsAdapter = ListsAdapter(requireContext(), onItemClickListener = { shoppingList ->
 
-
+            val action = ListsFragmentDirections.actionListsFragmentToDetailsFragment(
+                shoppingList.id,
+                shoppingList.name
+            )
+            findNavController().navigate(action)
         },
-            onMenuClickListener = { shoppingList ->
 
-            },
             onItemLongClickListener = { shoppingList ->
-                viewModel.getLShoppingListItemsQuantity(shoppingList.id)
+                viewModel.getShoppingListItemsQuantity(shoppingList.id)
                 bindBottomSheetViews(shoppingList)
                 bottomSheetBehaviorLists.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         )
 
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
         binding.recyclerView.adapter = listsAdapter
         binding.recyclerView.setHasFixedSize(true)
     }
@@ -211,8 +226,6 @@ class ListsFragment : Fragment() {
 
             CreatedState.Default -> {}
         }
-
-
     }
 
     private fun manageBottomSheetShadowAndFab() {
@@ -239,19 +252,18 @@ class ListsFragment : Fragment() {
         })
     }
 
-    private fun createEmptyFieldTextWatcher(view: View){
+    private fun createEmptyFieldTextWatcher(view: View) {
 
         val editText: TextView = view.findViewById(R.id.edit_list_name)
         val inputLayout: TextInputLayout = view.findViewById(R.id.input_list_name)
 
-        editText.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {           }
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.isNullOrBlank()){
+                if (s.isNullOrBlank()) {
                     inputLayout.error = getString(R.string.edit_error_message)
-                }
-                else inputLayout.error = null
+                } else inputLayout.error = null
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -265,7 +277,22 @@ class ListsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("LLL", "onDestroyView")
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.allowPooling()
+        viewModel.startPooling()
+        Log.d("LLL", "onResume")
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.stopPooling()
+        Log.d("LLL", "onPause")
     }
 
     companion object {

@@ -6,19 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-
     tools:context=".presentation.lists.ui.ListsFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
             style="@style/Widget.Material3.AppBarLayout"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:background="@color/soft_green"
+            android:background="@color/white"
             app:liftOnScroll="true">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -27,7 +25,6 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_scrollEffect="compress"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:menu="@menu/top_bar_lists_menu"
                 app:title="@string/lists_title"
                 app:titleCentered="true"
                 app:titleTextAppearance="@style/TopBarTitle"
@@ -37,7 +34,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingHorizontal="6dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="12dp"
@@ -57,7 +55,7 @@
 
         <LinearLayout
             android:id="@+id/bottom_sheet_layout_lists"
-            style="@style/PlayerBottomSheet"
+            style="@style/ListsBottomSheet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:behavior_peekHeight="220dp"
@@ -148,18 +146,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:src="@drawable/ic_shopping_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="@string/intro" />
 
         <TextView
+            android:paddingHorizontal="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/intro_text"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -175,6 +175,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:src="@drawable/ic_error_144"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -185,10 +186,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:paddingHorizontal="8dp"
+            android:paddingHorizontal="12dp"
             android:text="@string/something_went_wrong"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 

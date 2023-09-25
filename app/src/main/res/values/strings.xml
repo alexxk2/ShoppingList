@@ -39,4 +39,18 @@
     <string name="yes">ДА</string>
     <string name="edit_error_message">Поле не должно быть пустым</string>
 
+    <!--details screen-->
+    <string name="delete_product">Удалить</string>
+    <string name="cancel">Отмена</string>
+    <string name="intro_product_text">В списке нет ни одного товара. Нажмите \"+\" чтобы добавить товар в список.</string>
+    <string name="success_adding">Товар "%1$s" успешно добавлен!</string>
+    <string name="not_success_adding">Не получилось добавить товар</string>
+    <string name="product_name">Название товара*</string>
+    <string name="product_quantity">Количество товара*</string>
+    <string name="add_product">Добавить товар</string>
+    <string name="fields_must_not_be_blank">Поля добавления товара не должны быть пустыми</string>
+    <string name="delete_dialog_product">Удаление товара</string>
+    <string name="delete_product__dialog_message">Вы действительно хотите удалить этот товар?</string>
+
+
 </resources>

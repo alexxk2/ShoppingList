@@ -14,7 +14,6 @@ import com.example.shoppinglist.domain.models.ShoppingList
 class ListsAdapter(
     private val context: Context,
     private val onItemClickListener: (shoppingList: ShoppingList) -> Unit,
-    private val onMenuClickListener: (shoppingList: ShoppingList) -> Unit,
     private val onItemLongClickListener: (shoppingList: ShoppingList) -> Unit
 
 ) : ListAdapter<ShoppingList, ListsAdapter.ListsViewHolder>(DiffCallBack) {
@@ -25,12 +24,10 @@ class ListsAdapter(
         fun bind(
             item: ShoppingList,
             onItemClickListener: (shoppingList: ShoppingList) -> Unit,
-            onMenuClickListener: (shoppingList: ShoppingList) -> Unit,
             onItemLongClickListener: (shoppingList: ShoppingList) -> Unit
         ) {
             with(binding) {
                 root.setOnClickListener { onItemClickListener(item) }
-                listMenuButton.setOnClickListener { onMenuClickListener(item) }
                 root.setOnLongClickListener {
                     onItemLongClickListener(item)
                     true
@@ -55,7 +52,6 @@ class ListsAdapter(
         holder.bind(
             item = item,
             onItemClickListener = onItemClickListener,
-            onMenuClickListener = onMenuClickListener,
             onItemLongClickListener = onItemLongClickListener
         )
     }
